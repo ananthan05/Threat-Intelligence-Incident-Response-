@@ -226,32 +226,15 @@ Endpoint behavior showed:
 - Later beaconing to **eset-blacklist.net** over TLS
 
 ---
+## Splunk Detection
 
-## What Happened
+![image](https://github.com/user-attachments/assets/6dd9c04e-bc78-4680-8365-17ac801af1f4)
 
-1. **Initial Execution**
-   - `fb limiter pro cracked full version.exe` executed by user
-   - Dropped `Johnson.pot` → copied to `Johnson.pot.bat` and executed
-   - The `.bat` file launched `Batman.com` (a renamed AutoIt3 interpreter)
+Detect potential Lumma Stealer infection based on DNS resolution and TLS handshake to known C2 domain: `ponqcf.top`
 
-2. **AutoIt Loader Activity**
-   - `Batman.com` executed `payload.a3x` (compiled AutoIt script)
-   - Payload initiated network connections to **ponqcf.top**
-
-3. **Lumma Stealer Behavior**
-   - TLS connections suggest active beaconing to C2
-   - No credentials exfiltrated in sandbox—but Lumma is known to target:
-     - Browser passwords, autofill data
-     - Crypto wallets
-     - Stored cookies
-
-4. **Rsockstun Activity**
-   - `payload.a3x` or another dropped component made HTTP GET request to:
-     - `http://86.54.25.50/soks.exe`  
-   - Downloaded and ran a second-stage proxy/tunneling malware
-   - Established TLS connection to **eset-blacklist.net**
-   - Behavior consistent with **Rsockstun**, which provides SOCKS tunneling for covert access
-
+```
+source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
+```
 
 #  Incident Response: Lumma Stealer + Rsockstun (2025-07-02)
 
