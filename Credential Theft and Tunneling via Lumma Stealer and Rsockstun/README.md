@@ -236,9 +236,16 @@ Detect potential Lumma Stealer infection based on DNS resolution and TLS handsha
 source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 ```
 
-#  Incident Response: Lumma Stealer + Rsockstun (2025-07-02)
+![Screenshot 2025-07-10 172813](https://github.com/user-attachments/assets/4ff2ea98-a98d-418f-9844-29a2cf9c858b)
 
-##  Readiness Measures in Place
+Identify outbound DNS queries and TLS handshakes to the suspicious domain `eset-blacklist.net`, associated with **Rsockstun** post-compromise activity.
+
+```
+source="output.json" host="cyberlabserver" sourcetype="lumma" eset-blacklist.net
+```
+## Applying the Incident Response Lifecycle
+
+###  Readiness Measures in Place
 
 - **EDR & SIEM** actively monitoring user endpoints and network flows.
 - Analysts trained to detect:
@@ -250,7 +257,7 @@ source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 
 ---
 
-## Detection Phase Overview
+### Detection Phase Overview
 
 **Initial Observations:**
 - Outbound TLS connections to `ponqcf[.]top` (Lumma C2).
@@ -275,7 +282,7 @@ source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 
 ---
 
-## Isolation Actions
+### Isolation Actions
 
 - Disconnected infected host (`10.7.2.101`) from the internal network.
 - Blocked following IOCs:
@@ -289,7 +296,7 @@ source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 
 ---
 
-## Clean-up Operations
+### Clean-up Operations
 
 - Manually deleted all dropped files:
   - `.pot`, `.bat`, `.a3x`, and interpreter binaries
@@ -302,7 +309,7 @@ source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 
 ---
 
-##  Host Recovery
+###  Host Recovery
 
 - Re-imaged system using secure, clean baseline.
 - Restored user files from backups after multi-engine scanning.
@@ -313,7 +320,7 @@ source="output.json" host="cyberlabserver" sourcetype="lumma" ponqcf.top
 
 ---
 
-##  Takeaways and Improvements
+###  Takeaways and Improvements
 
 - Restrict execution of `.a3x` and similar compiled scripting files.
 - Enhance DNS-layer controls:
