@@ -3,7 +3,7 @@ Date - 2025-01-30
 
 **Source:** [malware-traffic-analysis.net](https://www.malware-traffic-analysis.net)
 
-On January 30, 2025, a phishing email delivered a malicious RAR archive containing an EXE payload, which, upon execution, infected the host with XLoader malware—a successor to FormBook. The malware established persistence, performed data theft, and exfiltrated credentials and system data to multiple C2 domains over HTTP.
+On January 30, 2025, a phishing email delivered a malicious RAR archive containing an EXE payload, which, upon execution, infected the host with XLoader malware,a successor to FormBook. The malware established persistence, performed data theft, and exfiltrated credentials and system data to multiple C2 domains over HTTP.
 
 ## Download the investigation files
 
