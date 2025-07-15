@@ -166,3 +166,84 @@ that result in DLL retrieval from WebDAV shares.
 | **TOR Domains** | `www.vfnbzcosotyp.com`, `www.hsphy52.com`, `www.sdeq3iozavf.com`        |
 | **TOR Ports**   | `9001`, `443`                                                           |
 
+---
+
+###  Step 8: Simulated Detection Using Splunk
+
+#### Convert PCAP to JSON:
+```bash
+tshark -r 2024-11-14-Raspberry-Robin-infection-traffic.pcap -T json > raspberry-pcap.json
+```
+<img width="1713" height="692" alt="image" src="https://github.com/user-attachments/assets/5ba38489-0888-49ef-b0d9-55b978170eaa" />
+
+Size was larger than 500 mb so we need make it small splunk only accepts the jason files which are less than 500 mb.
+
+Convert and Extract Only Relevant Traffic.You can filter the PCAP before converting it to JSON:
+
+```bash
+tshark -r 2024-11-14-Raspberry-Robin-infection-traffic.pcap -Y "http.request or tcp.port == 9001" -T json > filtered.json
+```
+<img width="1426" height="86" alt="image" src="https://github.com/user-attachments/assets/6d1de3fc-39cc-4621-9992-6b9e35ecbd7b" />
+
+This reduces the size by extracting only useful traffic (e.g., HTA, WebDAV, TOR).
+
+Upload it in splunk and select source type as default only.
+
+---
+
+
+####  Sample Splunk Queries
+
+**🔍 Detect TOR Port Usage**
+```spl
+source="filtered.json" host="localhost" 9001 OR 443
+```
+<img width="1712" height="817" alt="image" src="https://github.com/user-attachments/assets/66fc741d-8e3f-4885-b3a0-e8ba5e31f91e" />
+
+<img width="1390" height="667" alt="image" src="https://github.com/user-attachments/assets/22c0f4a9-738f-45f7-b818-aac6f8de0ac9" />
+
+---
+
+
+### Step 9: Incident Response Lifecycle (Raspberry Robin)
+
+####  Preparation
+- Disabled HTA file execution via GPO  
+- Blocked outbound WebDAV and TOR traffic at firewall  
+
+####  Identification
+- User reported suspicious pop-up after extracting a zip  
+- Alert triggered for .hta execution  
+- Spike in outbound connections to suspicious domains via port 9001  
+
+####  Containment
+- Disconnected infected machine from the network  
+- Blocked domains and IPs at perimeter firewall  
+
+#### Eradication
+- Deleted bootstrap.hta and v.dll  
+- Removed autorun entries / persistence mechanisms  
+- Scanned system with Defender and Malwarebytes EDR  
+
+####  Recovery
+- Restored system to known clean state  
+- Re-enabled network access after verification  
+- Monitored outbound traffic for anomalies  
+
+####  Lessons Learned
+- Prevent execution of .hta files  
+- Enable detection rules for obfuscated script downloads  
+- Monitor abnormal use of WebDAV protocols  
+- Build detections for known TOR domains and SNI anomalies  
+
+---
+
+###  Timeline of Events (UTC)
+
+| Time                | Event                                                   |
+|---------------------|----------------------------------------------------------|
+| 2024-11-14 21:13     | HTA script downloaded from malicious site                |
+| 2024-11-14 21:15     | Obfuscated script fetches v.dll from WebDAV share        |
+| 2024-11-14 21:29     | DLL runs and initiates TOR C2 communication              |
+| 2024-11-14 21:33     | Multiple outbound sessions on port 9001 begin            |
+| 2024-11-14 22:00     | IR initiated – endpoint isolated and triaged             |
