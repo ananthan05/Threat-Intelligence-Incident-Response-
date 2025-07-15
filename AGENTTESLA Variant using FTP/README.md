@@ -18,7 +18,7 @@ use the password `infected_20241204`
 
 ## Artifact Summary
 
-## 📁 Artifact Summary
+## Artifact Summary
 
 ### 🔹 `2024-12-04-IOCs-for-AgentTesla-variant-using-FTP.txt.zip` (1.4 kB)
 - Contains a text file listing **Indicators of Compromise (IOCs)**.
@@ -45,7 +45,7 @@ The file `2024-12-04-AgentTesla-variant-malspam-1251-UTC.eml.zip` contains the e
 
 ---
 
-### ✉️ Email Header Details
+### Email Header Details
 
 - **Received From IP**: `94.141.120[.]32`
   - Likely the **origin IP** of the sender. Could be a compromised server or bulletproof host.
