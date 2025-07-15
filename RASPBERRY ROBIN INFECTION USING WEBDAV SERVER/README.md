@@ -117,7 +117,7 @@ This activity confirms C2 beaconing and persistence behavior associated with Ras
 The usage of port 9001 and non-standard SNI domains is a strong IOC for TOR-based post-exploitation traffic.
 
 
-#### 🔍 Filter 2 – TOR C2 Communication (Post DLL Execution):
+####  Filter 2 – TOR C2 Communication (Post DLL Execution):
 ```wireshark
 tcp.port == 9001 or tls.handshake.type eq 1
 ```
@@ -176,7 +176,7 @@ tshark -r 2024-11-14-Raspberry-Robin-infection-traffic.pcap -T json > raspberry-
 ```
 <img width="1713" height="692" alt="image" src="https://github.com/user-attachments/assets/5ba38489-0888-49ef-b0d9-55b978170eaa" />
 
-Size was larger than 500 mb so we need make it small splunk only accepts the jason files which are less than 500 mb.
+Since Splunk accepts files below 500MB, filter the PCAP before JSON conversion.
 
 Convert and Extract Only Relevant Traffic.You can filter the PCAP before converting it to JSON:
 
