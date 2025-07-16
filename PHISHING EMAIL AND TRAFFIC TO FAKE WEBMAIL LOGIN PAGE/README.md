@@ -133,7 +133,7 @@ The TCP stream confirms that user input from the fake login page is transmitted 
 
 ---
 
-### Step 6: Indicators of Compromise (IOCs)
+## Step 6: Indicators of Compromise (IOCs)
 
 | **Type**         | **Value**                                                       |
 |------------------|------------------------------------------------------------------|
@@ -144,3 +144,34 @@ The TCP stream confirms that user input from the fake login page is transmitted 
 | **Subject**         | `Account Validation!! For admin@malware-traffic-analysis.net` |
 
 ---
+
+##  Step 7: Detection Logic in Splunk
+
+Once filtered and converted to JSON:
+
+###  Convert PCAP to JSON:
+```bash
+tshark -r 2024-08-29-phishing-website-traffic.pcap -Y "http.request or tcp.stream eq 13" -T json > phishing.json
+```
+<img width="1486" height="606" alt="image" src="https://github.com/user-attachments/assets/49af34b2-8aab-4024-89b3-72f90a3e666b" />
+
+Upload it in splunk and select source type as default only.
+
+<img width="1693" height="828" alt="image" src="https://github.com/user-attachments/assets/85e828b0-df5e-4788-b8e2-c3dea2d80b9a" />
+
+### Detect Credentials POST:
+
+```spl
+source="phishing.json" host="localhost" "/management.aspx" POST
+```
+
+<img width="1706" height="872" alt="image" src="https://github.com/user-attachments/assets/972555e2-0b7d-4aa9-80f3-11df428e75ba" />
+
+### Detect Email Harvesting Pattern:
+
+```sql
+source="phishing.json" host="localhost" "admin@malware-traffic-analysis.net"
+```
+
+<img width="1711" height="732" alt="image" src="https://github.com/user-attachments/assets/ab48a407-4306-4302-8169-35e8702d7106" />
+
