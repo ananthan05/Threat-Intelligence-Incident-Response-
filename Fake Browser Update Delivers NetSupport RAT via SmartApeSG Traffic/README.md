@@ -4,14 +4,7 @@ Date:2025-03-26
 
 Attack: SMARTAPESG TRAFFIC FOR FAKE BROWSER UPDATE LEADS TO NETSUPPORT RAT AND STEALC
 
-SmartApeSG (aka ZPHP/HANEYMANEY) was injected via malicious JavaScript on a legitimate site.
-Victim sees a fake browser-update prompt; JS is dropped.
-JS downloads a ZIP from attacker-controlled host.
-Inside ZIP: NetSupport RAT payload.
-Once run, the RAT beacons to 194[.]180.191[.]168:443.
-C2 responds with a second ZIP deployed via RAT: StealC.
-StealC is side-loaded via legitimate “mfpmp.exe” + malicious rtworkq.dll .
-Collected data is exfiltrated via HTTP POST to 193[.]239.237[.]40 domain paths.
+SmartApeSG (aka ZPHP/HANEYMANEY) was delivered via a malicious JavaScript injected into a legitimate website. Victims saw a fake browser update prompt, triggering a JS dropper that downloaded a ZIP containing the NetSupport RAT. Once executed, the RAT connected to its C2 at 194.180.191.168:443, which responded with another ZIP carrying the StealC malware. StealC was side-loaded using a legitimate mfpmp.exe to run a malicious rtworkq.dll, enabling data exfiltration via HTTP POST to 193.239.237.40.
 
 ## First Download the associated files
 
