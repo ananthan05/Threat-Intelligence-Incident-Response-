@@ -167,6 +167,7 @@ source="phishing.json" host="localhost" "/management.aspx" POST
 
 <img width="1706" height="872" alt="image" src="https://github.com/user-attachments/assets/972555e2-0b7d-4aa9-80f3-11df428e75ba" />
 
+
 ### Detect Email Harvesting Pattern:
 
 ```sql
@@ -174,6 +175,20 @@ source="phishing.json" host="localhost" "admin@malware-traffic-analysis.net"
 ```
 
 <img width="1711" height="732" alt="image" src="https://github.com/user-attachments/assets/ab48a407-4306-4302-8169-35e8702d7106" />
+
+#### Observation:
+
+This query confirms the presence of the target email address in multiple fields:
+
+- HTTP GET and POST requests to `/management.aspx?good=admin@malware-traffic-analysis.net`
+- URL query parameters and referer headers
+
+Repeated occurrences at different timestamps indicate multiple steps in phishing flow:
+
+- Email auto-filled in login form
+- Sent in both GET (page load) and POST (credential submission)
+
+Also confirms the use of unencrypted HTTP, making these credentials visible to interceptors
 
 ---
 
