@@ -46,6 +46,8 @@ https://email.procedure.best/management.aspx?good=admin@malware-traffic-analysis
 
 <img width="1877" height="981" alt="Screenshot 2025-07-16 092903" src="https://github.com/user-attachments/assets/5a0cfdc8-195c-44c1-bf32-e2ca6d122d2a" />
 
+---
+
 ##  Step 3: Fake Webmail Page Analysis
 
 The victim is redirected to a **fake Webmail login page** hosted at:
@@ -65,8 +67,10 @@ http://email.procedure.best/management.aspx?good=admin@malware-traffic-analysis.
 
 <img width="1085" height="609" alt="image" src="https://github.com/user-attachments/assets/38d82f3d-0bcc-465c-907b-e5a7d236d4f8" />
 
+---
 
-##  Network Traffic Analysis (Wireshark)
+
+## Step 4:  Network Traffic Analysis (Wireshark)
 
 **Opened File:**  
 `2024-08-29-phishing-website-traffic.pcap`
@@ -94,8 +98,9 @@ email.procedure.best
 
  This confirms successful credential harvesting by the fake login portal.
 
+---
 
-### Step 5: Credential Exfiltration – Follow HTTP Stream
+## Step 5: Credential Exfiltration – Follow HTTP Stream
 
 **Wireshark Filter Used:**
 ```wireshark
@@ -126,3 +131,16 @@ JV-Yh-gl-admin%40malware-traffic-analysis.net&RZ-Jt-US=this_is_not_a_real_passwo
 
 The TCP stream confirms that user input from the fake login page is transmitted in plain HTTP via POST, making it easily interceptable and proving successful credential theft.
 
+---
+
+### Step 6: Indicators of Compromise (IOCs)
+
+| **Type**         | **Value**                                                       |
+|------------------|------------------------------------------------------------------|
+| **Phishing Domain** | `email.procedure.best`                                        |
+| **URL Path**        | `/management.aspx?good=admin@malware-traffic-analysis.net`    |
+| **Origin IP**       | `172.67.202.104` (Cloudflare proxied)                         |
+| **Sender Email**    | `khz.port@scp[.]gov[.]iq`                                      |
+| **Subject**         | `Account Validation!! For admin@malware-traffic-analysis.net` |
+
+---
