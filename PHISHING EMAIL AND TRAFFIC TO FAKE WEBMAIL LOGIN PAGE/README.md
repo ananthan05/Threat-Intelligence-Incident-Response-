@@ -175,3 +175,29 @@ source="phishing.json" host="localhost" "admin@malware-traffic-analysis.net"
 
 <img width="1711" height="732" alt="image" src="https://github.com/user-attachments/assets/ab48a407-4306-4302-8169-35e8702d7106" />
 
+---
+
+##  Step 8: Incident Response Lifecycle
+
+| **Phase**       | **Action Taken**                                                                 |
+|------------------|----------------------------------------------------------------------------------|
+| **Preparation**  | Enabled email gateway phishing detection                                         |
+| **Identification** | User reports suspicious email; SOC alert on HTTP POST to suspicious domain      |
+| **Containment**  | Blocked `email.procedure.best`; alerted all users                               |
+| **Eradication**  | Removed phishing email; cleared proxy logs and DNS cache                        |
+| **Recovery**     | Reset compromised credentials; enforced 2FA                                      |
+| **Lessons Learned** | Educated users on spear-phishing and domain impersonation tactics               |
+
+---
+
+##  Timeline of Events (UTC)
+
+| **Time**              | **Event**                                                 |
+|------------------------|-----------------------------------------------------------|
+| 2024-08-29 04:15       | Phishing email received                                   |
+| 2024-08-29 21:03       | Victim opens phishing site and enters credentials         |
+| 2024-08-29 21:03:36    | HTTP POST sends credentials to attacker's server          |
+| 2024-08-29 21:05       | Alert triggered from proxy logs                           |
+| 2024-08-29 21:30       | Credentials reset and Incident Response initiated         |
+
+---
