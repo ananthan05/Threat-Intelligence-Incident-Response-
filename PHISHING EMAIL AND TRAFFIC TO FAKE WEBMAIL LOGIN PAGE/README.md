@@ -95,3 +95,34 @@ email.procedure.best
  This confirms successful credential harvesting by the fake login portal.
 
 
+### Step 5: Credential Exfiltration – Follow HTTP Stream
+
+**Wireshark Filter Used:**
+```wireshark
+tcp.stream eq 13
+```
+
+#### Locate the Packet:
+- Find the **HTTP POST** packet related to your phishing domain (e.g., `email.procedure.best`).
+- Look for `POST /management.aspx?...` in the **Info** column.
+
+####  Action:
+- **Right-click** the POST packet  
+- Navigate to: `Follow` → `TCP Stream`
+
+This reveals the full request and response between the victim and the phishing server, including any credentials sent over the wire.
+
+<img width="1717" height="943" alt="image" src="https://github.com/user-attachments/assets/725eb704-2d25-4f32-9d45-e01e0f6ef618" />
+
+#### Observed HTTP POST Request:
+
+```http
+POST /management.aspx?good=admin@malware-traffic-analysis.net HTTP/1.1
+Host: email.procedure.best
+Content-Type: application/x-www-form-urlencoded
+...
+JV-Yh-gl-admin%40malware-traffic-analysis.net&RZ-Jt-US=this_is_not_a_real_password...
+```
+
+The TCP stream confirms that user input from the fake login page is transmitted in plain HTTP via POST, making it easily interceptable and proving successful credential theft.
+
