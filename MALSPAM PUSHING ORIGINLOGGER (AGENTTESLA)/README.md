@@ -1,7 +1,7 @@
 ##  Malware Case Study – June 10, 2024
 
 **Date:** June 10, 2024  
-**Source:** [malware-traffic-analysis.net](https://www.malware-traffic-analysis.net)
+**Source:** [malware-traffic-analysis.net](https://www.malware-traffic-analysis.net/2024/06/10/index.html)
 
 ---
 
